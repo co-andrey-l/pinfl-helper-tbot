@@ -1,12 +1,17 @@
+import datetime
 import os
+import random
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from pinfl_utilities_generator import PinflUtilitiesGenerator
 from pinfl_utilities_parser import PinflUtilitiesParser
+
 
 def start(update, context):
     update.message.reply_text(
-        "Привет! Отправь мне PINFL для анализа и я скажу валидный он или нет.\n" \
+        "Привет! Отправь мне PINFL для анализа и я скажу валидный он или нет.\n"
         "Тут все честно, я не сохраняю никаких данных о тебе или о том, что ты пишешь."
-        )
+    )
+
 
 def echo(update, context):
     pinfl_text = update.message.text.strip()
@@ -32,11 +37,26 @@ def echo(update, context):
 
     update.message.reply_text(response)
 
+
+def generate_pinfl(update, context):
+    generator = PinflUtilitiesGenerator()
+    gender = random.choice(["male", "female"])
+    birth_date = datetime.date(
+        random.randint(1900, 2005), random.randint(1, 12), random.randint(1, 28)
+    )
+    pinfl = generator.generate_pinfl(gender, birth_date)
+    update.message.reply_text(
+        f"```{pinfl}```\nДата рожденья: {birth_date}\nГендер: #{gender}",
+        parse_mode="MarkdownV2",
+    )
+
+
 def main():
-    token = os.environ.get('TELEGRAM_BOT_TOKEN')
+    token = os.environ.get("TELEGRAM_BOT_TOKEN")
     updater = Updater(token, use_context=True)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("generate_pinfl", generate_pinfl))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
 
     print(f"bot launched successfully")
@@ -45,5 +65,6 @@ def main():
 
     updater.idle()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

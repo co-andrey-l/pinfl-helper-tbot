@@ -1,19 +1,29 @@
 from collections import namedtuple
 from datetime import date
 
+
 class PinflUtilitiesParser:
     WEIGHT_FUNC = [7, 3, 1, 7, 3, 1, 7, 3, 1, 7, 3, 1, 7]
     BEGINNING_CENTURY = 17
 
     Parts = namedtuple(
-        "Parts", [
-            "area_code", "check_digit", "century", "gender", "decade",
-            "year", "month", "day", "birth_date", "citizen_serial_number"
-        ]
+        "Parts",
+        [
+            "area_code",
+            "check_digit",
+            "century",
+            "gender",
+            "decade",
+            "year",
+            "month",
+            "day",
+            "birth_date",
+            "citizen_serial_number",
+        ],
     )
 
     def __init__(self, value):
-        self.value = str(value)
+        self.value = "".join(filter(str.isdigit, str(value)))
 
     @property
     def century_and_gender(self):
@@ -62,13 +72,25 @@ class PinflUtilitiesParser:
     @property
     def parts(self):
         return self.Parts(
-            area_code=self.area_code, check_digit=self.check_digit, century=self.century,
-            gender=self.gender, decade=self.decade, year=self.year, month=self.month,
-            day=self.day, birth_date=self.birth_date, citizen_serial_number=self.citizen_serial_number
+            area_code=self.area_code,
+            check_digit=self.check_digit,
+            century=self.century,
+            gender=self.gender,
+            decade=self.decade,
+            year=self.year,
+            month=self.month,
+            day=self.day,
+            birth_date=self.birth_date,
+            citizen_serial_number=self.citizen_serial_number,
         )
 
     def is_valid(self):
-        return (len(self.value) == 14 and (self.is_valid_date() and self.validate_check_digit() and self.validate_area_code() and self.validate_citizen_serial_number()))
+        return len(self.value) == 14 and (
+            self.is_valid_date()
+            and self.validate_check_digit()
+            and self.validate_area_code()
+            and self.validate_citizen_serial_number()
+        )
 
     def is_valid_date(self):
         try:
@@ -88,4 +110,10 @@ class PinflUtilitiesParser:
 
     def calculate_check_digit(self):
         pinfl_numbers = list(map(int, self.value))
-        return sum(num * weight for num, weight in zip(pinfl_numbers[:-1], self.WEIGHT_FUNC)) % 10
+        return (
+            sum(
+                num * weight
+                for num, weight in zip(pinfl_numbers[:-1], self.WEIGHT_FUNC)
+            )
+            % 10
+        )
