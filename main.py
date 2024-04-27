@@ -45,8 +45,9 @@ def generate_pinfl(update, context):
         random.randint(1900, 2005), random.randint(1, 12), random.randint(1, 28)
     )
     pinfl = generator.generate_pinfl(gender, birth_date)
+    formatted_birth_date = birth_date.strftime("%d %B\(%m\) %Y")
     update.message.reply_text(
-        f"```{pinfl}```\nДата рожденья: {birth_date}\nГендер: #{gender}",
+        f"```{pinfl}```\nДата рожденья: {formatted_birth_date}\nГендер: \#{gender}",
         parse_mode="MarkdownV2",
     )
 
