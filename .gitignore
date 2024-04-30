@@ -2,3 +2,4 @@
 autom4te.cache
 .github
 .env
+.DS_Store

@@ -1,25 +1,27 @@
-# Телеграм-бот для анализа PINFL
+# Telegram Bot for PINFL Analysis
 
-Этот проект представляет собой телеграм-бота, который анализирует введенный пользователем ПИНФЛ (Персональный идентификационный номер физического лица) и сообщает о его валидности, а также о дате рождения, коде региона и других параметрах.
+[![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 
-## Зачем этот проект нужен?
+This project is a Telegram bot that analyzes the PINFL (Personal Identification Number for Individual Taxpayer) entered by the user and reports its validity, as well as its birth date, region code, and other parameters.
 
-ПИНФЛ (PINFL) - это уникальный идентификационный номер, используемый в ряде стран для идентификации граждан. Этот проект предназначен для обработки и анализа PINFL, чтобы убедиться в его корректности и предоставить информацию о дате рождения и других данных, содержащихся в этом номере.
+## Why is this project needed?
 
-## Как использовать?
+PINFL (PINFL) is a unique identification number used in several countries to identify citizens. This project is intended for processing and analyzing PINFL to ensure its correctness and provide information about the birth date and other data contained in this number.
 
-1. Перейдите в деррикторию проекта
+## How to use?
 
-2. Скопируйте ``` .env.example ``` в ``` .env ```
+1. Navigate to the project directory.
 
-3. Обновите все значения в ``` .env ```
+2. Copy ``` .env.example ``` to ``` .env ```.
+
+3. Update all values in ``` .env ```.
 
 4. ``` docker build -t pinfl_bot . ```
 
 5. ``` docker run -d pinfl_bot ```
 
-## Дополнительные функции
+## Additional features
 
-1. Бот предварительно проверяет введенный текст на наличие только цифр и длину не менее 14 символов. Если введенный текст не соответствует этим критериям, бот отправит сообщение с соответствующим предупреждением.
+1. The bot pre-checks the entered text for the presence of only digits and a length of at least 14 characters. If the entered text does not meet these criteria, the bot will send a message with the corresponding warning.
 
-2. Если введенный PINFL короче 14 символов, недостающие символы будут заполнены нулями перед анализом.
+2. If the entered PINFL is shorter than 14 characters, the missing characters will be filled with zeros before analysis.
