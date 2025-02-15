@@ -12,16 +12,19 @@ PINFL (PINFL) is a unique identification number used in several countries to ide
 
 1. Navigate to the project directory.
 
-2. Copy ``` .env.example ``` to ``` .env ```.
+2. Copy ```.env.example ``` to ```.env ```:
+```shell
+$ cp .env.example .env
+```
 
-3. Update all values in ``` .env ```.
+3. Update all values in ```.env ```:
+```shell
+$ vim .env
+```
 
-4. ``` docker build -t pinfl_bot . ```
-
-5. ``` docker run -d pinfl_bot ```
+4. Run ```docker-compose up -d```
 
 ## Additional features
 
 1. The bot pre-checks the entered text for the presence of only digits and a length of at least 14 characters. If the entered text does not meet these criteria, the bot will send a message with the corresponding warning.
 
-2. If the entered PINFL is shorter than 14 characters, the missing characters will be filled with zeros before analysis.
