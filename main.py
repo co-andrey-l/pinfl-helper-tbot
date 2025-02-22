@@ -71,8 +71,7 @@ def issues(update, context):
     """Handling the issue function."""
     issue_link = os.environ.get("ISSUE_LINK")
     update.message.reply_text(
-        "Если у вас возникли проблемы или у вас есть предложение, пожалуйста, " \
-        f"оставьте [issue]({issue_link}) проекта.",
+        f"Если у вас возникли проблемы или у вас есть предложение, пожалуйста, оставьте [issue]({issue_link}) проекта.",
         parse_mode="MarkdownV2",
     )
 
